@@ -1,0 +1,10 @@
+graft lily/templates
+graft lily/static
+include lily/schema.sql
+include lily/fillers.py
+include lily/helpers.py
+include lily/r_login.py
+include lily/db_fill.py
+include lily/keys.txt
+include lily/stoplist.txt
+include lily/lily.db

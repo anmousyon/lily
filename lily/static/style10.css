@@ -1,0 +1,115 @@
+body{
+    font-family: sans-serif;
+    background-color:white;
+}
+a, h1, h2{
+    color: #000000;
+}
+h1, h2{
+    font-family: 'sans-serif';
+    margin: auto;
+    text-align: center;
+}
+
+h2{
+    font-size: 1.2em;
+}
+
+.main{
+    padding-left: 8em;
+    padding-right: 8em;
+    background-color: white;
+}
+
+.footer{
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    height: 5em;
+    background-color: #191919;
+    text-align: center;
+    color: white;
+}
+
+.footer a{
+    text-align: center;
+    font-family: roboto;
+    font-weight: light !important;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+}
+.navbar-nav > li {
+    color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    float: none;
+    display: inline-block;
+}
+
+.jumbotron{
+    background-color: white;
+    padding: .5em;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h4{
+    font-size: 5em;
+}
+
+#title_name{
+    background-color: white !important;
+    font-family: lobster !important;
+    color: #191919;
+    text-align: center;
+    padding-top: .5em;
+}
+
+.container-fluid{
+    margin: auto;
+}
+
+.posts{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h3{
+    font-weight: 300;
+}
+
+.row{
+    font-size: 0.8em;
+}
+
+.row a{
+    text-decoration-line: none;
+    text-decoration: none;
+    color: #191919;
+}
+
+#posts{
+    min-height: 30em;
+}
+
+.add-entry dl{
+    font-weight: 300;
+}
+.flash{
+    background: #FFFFFF;
+}
+.error{
+    background: #ffffff;
+}
+
+p{
+    font-size: 1.2em;
+    font-family: roboto;
+    font-weight: 300;
+}

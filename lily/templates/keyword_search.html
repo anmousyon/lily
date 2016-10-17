@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_post') }}" method="post" class="add-post">
+      <dl>
+        <dt>What keyword are you looking for?
+        <dd><input type="text" size="30" name="keyword">
+        <dd><input type="submit" value="go">
+      </dl>
+    </form>
+  {% endif %}
+  <ul class="posts">
+  {% for post in posts %}
+    <li><h2>{{ post.title }}</h2>{{ post.sentiment|safe }}
+  {% else %}
+    <li><em>Unbelievable.  No posts here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

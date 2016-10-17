@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div class="container">
+    <form action="{{ url_for('search') }}" method="post" class="search">
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" name="query" placeholder="What are you looking for?">
+        </div>
+        <div class="col-md-2">
+          <input type="submit" class="btn btn-default" value="go!">
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="container-fluid" id="posts">
+    <h3>{{ post.title }}</h3>
+    <h5>{{ post.selftext }}</h3>
+    <p>site: {{ post.site }}</p>
+    <p>user: {{ post.username }}</p>
+    <p>sub: {{ post.subreddit }}</p>
+    <p>sentiment: {{ post.sentiment }}</p>
+    <p>karma: {{ post.karma }}</p>
+    <p>replies: {{ post.replies }}</p>
+    <p>created: {{ post.created }}</p>
+    <p>edited: {{ post.edited }}</p>
+    <p>permalink: <a href={{ post.link }}>{{ post.link }}</a></p>
+  </div>
+{% endblock %}

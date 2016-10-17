@@ -1,0 +1,6 @@
+lily/info/keys.txt
+lily.egg_info
+lily/__pycache__
+lily/database
+lily/info/logger.log
+.eggs/
