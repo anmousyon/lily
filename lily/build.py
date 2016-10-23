@@ -67,22 +67,22 @@ def fill(graph, reddit, sub, sub_node):
         # print post currently working on (remove later)
         print(post.title)
 
-        comments = helpers.get_comments(post)
+        comments = helpers.comments(post)
 
         post_node = add_post(graph, post, sub_node)
 
         for top_level_comment in comments:
             comment_node = add_comment(graph, top_level_comment, post_node, post_node)
-            dfs(graph, top_level_comment, post_node, comment_node, None)
+            dfs(graph, top_level_comment, post_node, comment_node, seen=None)
 
     print('done with sub')
 
 
 def build(graph):
     '''fills the posts and comments graph'''
-    reddit = helpers.redditlogin()
-    subs = set()
+    reddit = helpers.login()
 
+    subs = set()
     with open('lily/info/subreddits.txt') as file:
         subs = file.readlines()
 
