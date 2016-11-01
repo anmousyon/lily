@@ -8,10 +8,10 @@ def add_post(graph, post, sub_node):
     post_node = Node('post', label=str(post.id))
     graph.merge(post_node)
     post_node['title'] = str(post.title)
-    post_node['title_sentiment'] = helpers.sentiment(post.title)
+    post_node['title_sentiment'] = helpers.get_sentiment(post.title)
     post_node['is_selftext'] = str(post.is_self)
     post_node['selftext'] = str(post.selftext)
-    post_node['selftext_sentiment'] = helpers.sentiment(post.selftext)
+    post_node['selftext_sentiment'] = helpers.get_sentiment(post.selftext)
     post_node['site'] = 'http://' + urlparse(str(post.url))[1].strip()
     post_node['created'] = str(post.created)
     post_node['edited'] = str(post.edited)
@@ -33,7 +33,7 @@ def add_comment(graph, comment, post_node, parent_node):
     comment_node = Node('comment', label=str(comment.id))
     graph.merge(comment_node)
     comment_node['body'] = comment.body
-    comment_node['sentiment'] = helpers.sentiment(comment.body),
+    comment_node['sentiment'] = helpers.get_sentiment(comment.body),
     comment_node['created'] = str(comment.author)
     comment_node['edited'] = str(comment.edited)
     comment_node['karma'] = int(comment.score)
@@ -61,13 +61,13 @@ def dfs(graph, comment, post_node, comment_node, seen):
 
 
 def fill(graph, reddit, sub, sub_node):
-    posts = helpers.get_posts(reddit, sub)
+    posts = helpers.get_posts(graph, reddit, sub)
 
     for post in posts:
         # print post currently working on (remove later)
         print(post.title)
 
-        comments = helpers.comments(post)
+        comments = helpers.get_comments(post)
 
         post_node = add_post(graph, post, sub_node)
 
@@ -86,7 +86,7 @@ def build(graph):
     with open('lily/info/subreddits.txt') as file:
         subs = file.readlines()
 
-    for sub in subs:
+    for sub in subs[:3]:
         sub = sub.strip()
 
         sub_node = Node('sub', label=sub)

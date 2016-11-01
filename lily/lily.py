@@ -3,11 +3,11 @@ from flask import Flask, request, g, render_template
 from py2neo import Graph
 import logging
 from lily.build import build
-from lily import helpers, classifier
+from lily import helpers#, classifier
 
 
 # create uniqueness constraints for each type of node
-graph = Graph('http://neo4j:buffalo12@localhost:7474/db/data/')
+graph = Graph('http://neo4j:das@localhost:7474/db/data/')
 for node_type in ('sub', 'user', 'post', 'comment'):
     try:
         graph.schema.create_uniqueness_constraint(node_type, 'label')
@@ -29,12 +29,12 @@ def init_db():
     '''build the graph'''
     build(graph)
 
-
+'''
 @app.cli.command('train')
 def train():
-    '''train the classifier'''
+    # train the classifier
     classifier.train_classifier()
-
+'''
 
 @app.route('/')
 def homepage():
