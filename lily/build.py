@@ -85,8 +85,8 @@ def build(graph):
     subs = set()
     with open('lily/info/subreddits.txt') as file:
         subs = file.readlines()
-
-    for sub in subs[:3]:
+    subs = ["the_donald"]
+    for sub in subs:
         sub = sub.strip()
 
         sub_node = Node('sub', label=sub)
