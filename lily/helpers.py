@@ -9,11 +9,11 @@ import RAKE
 FILTER = RAKE.Rake('lily/info/stoplist.txt')
 
 
-def get_posts(graph, reddit, sub):
+def get_posts(graph, reddit, subreddit):
     '''get all posts not in the database already'''
     ids = graph.data(
-        "MATCH (post)-[:`posted in`]->(subreddit) WHERE subreddit.label = {sub} RETURN post.label",
-        sub=sub
+        "MATCH (post)-[:`posted in`]->(subreddit) WHERE subreddit.label = {subreddit} RETURN post.label",
+        subreddit=subreddit
     )
     ids = [id["post.label"] for id in ids]
     posts = [post for post in reddit.get_subreddit(sub).get_hot(limit=10) if post.id not in ids]
@@ -22,7 +22,7 @@ def get_posts(graph, reddit, sub):
 
 def get_comments(post):
     '''return an array of the comments from the post'''
-    post.replace_more_comments(limit=1, threshold=10)
+    post = post.replace_more_comments(limit=1, threshold=10)
     return post.comments
 
 
@@ -39,7 +39,7 @@ def get_sentiment(text):
 
 def get_hour(time):
     '''get hour from datetime'''
-    if time != 'False':
+    if time == 'False':
         return 0
     else:
         str((datetime.fromtimestamp(int(float(time)))).hour)
@@ -67,5 +67,12 @@ def login():
     with open('lily/info/keys.txt') as file:
         keys = file.readlines()
     reddit = praw.Reddit('lily')
+    '''
+    reddit.set_oauth_app_info(
+        client_id='-400hLn5ypKJhg',
+        client_secret='KuiYAJxYa1gqDBd4eg_Y-A3fuTw',
+        redirect_uri='http://127.0.0.1:65010/authorize_callback'
+    )
+    '''
     reddit.login(keys[0].strip(), keys[1].strip(), disable_warning=True)
     return reddit

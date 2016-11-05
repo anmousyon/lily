@@ -14,10 +14,6 @@ for node_type in ('sub', 'user', 'post', 'comment'):
     except:
         pass
 
-#config
-DEBUG = True
-SECRET_KEY = 'development key'
-
 
 # create the app
 app = Flask(__name__)
@@ -36,10 +32,15 @@ def train():
     classifier.train_classifier()
 '''
 
+
 @app.route('/')
 def homepage():
     '''show top posts in database'''
-    posts = Post.select().where(Post.karma > 5000).order_by(-Post.karma).limit(10)
+    posts = graph.data(
+        "MATCH (post) WHERE post.karma > {karma} RETURN post",
+        karma=5000
+    ).limit(10)
+    # posts = Post.select().where(Post.karma > 5000).order_by(-Post.karma).limit(10)
     return render_template('show_posts.html', posts=posts)
 
 
@@ -55,6 +56,9 @@ def search():
 @app.route('/post/<post_id>')
 def show_post(post_id):
     '''show the post with the given id'''
-    post = Post.get(Post.label == post_id)
+    posts = graph.data(
+        "MATCH (post) WHERE post.label = {label} RETURN post",
+        label=post_id
+    )
     print(post.label)
     return render_template('post_info.html', post=post)

@@ -1,20 +1,18 @@
 '''ml helpers for classifying comments'''
 import time
 import gc
-#from sklearn.preprocessing import LabelEncoder
 from lily import lily, helpers
+
 
 def extract(data, col):
     '''get the output for the data'''
     extracted = [row.pop(col) for row in data]
     return data, extracted
 
+
 def get_data():
     '''get the data from the database'''
     comments = lily.Comment.select()
-    start = time.time()
-    gc.disable()
-    print(len(comments))
     data = [
         [
             comment.post,
@@ -28,10 +26,8 @@ def get_data():
         ]
         for comment in comments
     ]
-    gc.enable()
-    end = time.time()
-    print('time', end-start)
     return data
+
 
 def encode(col):
     '''encode a column'''
@@ -44,6 +40,7 @@ def encode(col):
     enc = [val for item in col for key, val in unq.items() if item == key]
     return enc, unq
 
+
 def fit_encode(data):
     '''fit all columns, encode them and recombine them'''
     encoders = []
@@ -55,6 +52,7 @@ def fit_encode(data):
         encoders.append(encoder)
     data = [[col[y] for col in cols] for y, _ in enumerate(cols[0])]
     return data, encoders
+
 
 def prep_data(data):
     '''clean up and format data and get classes list'''
